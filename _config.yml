@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Terminal Ninja
 subtitle:
 description:
-author: John Doe
+author: Han Haishan
 language:
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
+url: http://hanhaishan.com
+root: /terminal/
 permalink: :year/:month/:title/
 permalink_defaults:
 
@@ -76,4 +76,6 @@ disqus_shortname: terminal-ninja
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:haishanh/terminal.git 
+  branch: gh-pages
