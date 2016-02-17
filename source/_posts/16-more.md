@@ -1,8 +1,7 @@
 ---
 title: more
-date: 2016-01-29
+date: 2016-02-15
 updated: 2016-02-14
-tags:
 ---
 ## 用来干嘛
 
