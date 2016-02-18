@@ -5,7 +5,7 @@
 # Site
 title: Terminal Ninja
 subtitle:
-description: Everyone should learn CLI
+description: Command line for everyone
 author: Han Haishan
 language:
 timezone:
@@ -68,8 +68,8 @@ feed:
   limit: 100
   hub:
 ## Themes: http://hexo.io/themes/
-# theme: hexo-theme-landscape 
-theme: zxcvb 
+# theme: hexo-theme-landscape
+theme: zxcvb
 
 disqus_shortname: terminal-ninja
 
@@ -77,5 +77,5 @@ disqus_shortname: terminal-ninja
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:haishanh/terminal.git 
+  repo: git@github.com:haishanh/terminal.git
   branch: gh-pages
