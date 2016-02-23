@@ -1,5 +1,5 @@
 ---
-title: cal - display a calendar
+title: cal
 date: 2016-01-20
 updated: 2016-01-20
 ---

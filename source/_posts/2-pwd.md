@@ -1,5 +1,5 @@
 ---
-title: pwd - print name of current/working directory
+title: pwd
 date: 2016-01-01
 updated: 2016-01-01
 ---

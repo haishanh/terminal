@@ -1,5 +1,5 @@
 ---
-title: mv - move (rename) files
+title: mv
 date: 2016-01-11
 updated: 2016-01-07
 ---

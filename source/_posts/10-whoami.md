@@ -1,5 +1,5 @@
 ---
-title: whoami - print effective userid
+title: whoami
 date: 2016-01-14
 updated: 2016-01-14
 ---

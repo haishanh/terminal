@@ -1,5 +1,5 @@
 ---
-title: cp - copy files and directories
+title: cp
 date: 2016-01-08
 updated: 2016-01-08
 ---

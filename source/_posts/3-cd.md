@@ -1,5 +1,5 @@
 ---
-title: cd - change the working directory
+title: cd
 date: 2016-01-02 
 updated: 2015-12-31
 ---

@@ -1,5 +1,5 @@
 ---
-title: who - show who is logged on
+title: who
 date: 2016-01-07
 updated: 2016-01-07
 ---

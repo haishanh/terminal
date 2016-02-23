@@ -1,5 +1,5 @@
 ---
-title: mkdir - make directories
+title: mkdir
 date: 2016-01-06
 updated: 2016-01-06
 ---

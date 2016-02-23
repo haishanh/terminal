@@ -1,5 +1,5 @@
 ---
-title: echo - display a line of text
+title: echo
 date: 2016-01-18
 updated: 2016-01-18
 ---

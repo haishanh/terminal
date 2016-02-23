@@ -1,5 +1,5 @@
 ---
-title: uptime - Tell how long the system has been running
+title: uptime
 date: 2016-01-21
 published: 2016-01-21
 ---

@@ -1,5 +1,5 @@
 ---
-title: date - print or set the system date and time
+title: date
 date: 2016-01-19
 updated: 2016-01-19
 ---

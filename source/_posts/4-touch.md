@@ -1,5 +1,5 @@
 ---
-title: touch - change file timestamps
+title: touch
 date: 2016-01-05
 updated: 2016-01-05
 ---

@@ -1,5 +1,5 @@
 ---
-title: ls - list directory contents
+title: ls
 date: 2015-12-31
 updated: 2015-12-31
 ---

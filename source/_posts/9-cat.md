@@ -1,5 +1,5 @@
 ---
-title: cat - concatenate files and print on the standard output
+title: cat
 date: 2016-01-12
 updated: 2016-01-12
 ---
