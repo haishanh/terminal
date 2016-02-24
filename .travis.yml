@@ -15,6 +15,7 @@ before_install:
   cp .travis/ssh_config ~/.ssh/config
   git config --global user.name "haishanh"
   git config --global user.email "haishanhan@gmail.com"
+  pwd
   cd themes
   git clone git@github.com:haishanh/hexo-theme-zxcvb.git zxcvb
   cd ..
