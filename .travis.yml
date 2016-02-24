@@ -1,13 +1,22 @@
 language: node_js
 node_js:
-  - 5
+- 5
 sudo: false
 cache:
   directories:
-    - node_modules
+  - node_modules
 before_install:
-  - |
-    npm install hexo-cli -g
-    npm --version
+- openssl aes-256-cbc -K $encrypted_d66822a85ddf_key -iv $encrypted_d66822a85ddf_iv
+  -in .travis/id_rsa.enc -out ~/.ssh/id_rsa -d
+- |
+  chmod 600 ~/.ssh/id_rsa
+  eval $(ssh-agent)
+  ssh-add ~/.ssh/id_rsa
+  cp .travis/ssh_config ~/.ssh/config
+  git config --global user.name "haishanh"
+  git config --global user.email "haishanhan@gmail.com"
+  npm install hexo-cli -g
+  npm --version
 script:
-  - hexo deploy
+- hexo generate
+- hexo deploy
