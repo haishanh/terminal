@@ -41,7 +41,7 @@ alias gcm='git commit -m'
         /usr/bin/git
 ```
 
-上面的例子中可以看到`which`也正确识别了alias中用到的命令的全路径。这时因为我们现在用的`which`本身就是一个alias，在这个alias中给`which`加了`--read-alias`选项，不加任何选项是不能识别alias的。
+上面的例子中可以看到`which`也正确识别了alias中用到的命令的全路径。这是因为我们现在用的`which`本身就是一个alias，在这个alias中给`which`加了`--read-alias`选项，不加任何选项是不能识别alias的。
 
 
 ```sh
