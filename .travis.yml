@@ -15,6 +15,9 @@ before_install:
   cp .travis/ssh_config ~/.ssh/config
   git config --global user.name "haishanh"
   git config --global user.email "haishanhan@gmail.com"
+  cd themes
+  git clone git@github.com:haishanh/hexo-theme-zxcvb.git zxcvb
+  cd ..
   npm install hexo-cli -g
   npm --version
 script:
