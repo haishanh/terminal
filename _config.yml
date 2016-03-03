@@ -82,5 +82,5 @@ deploy:
 
 
 # hexo-theme-zxcvb specific configurations
-footer: <span>&copy;</span>2016 <a href="http://hanhaishan.com">Haishan</a><br>
+footer: <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br>
         Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
