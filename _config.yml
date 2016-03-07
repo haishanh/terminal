@@ -83,6 +83,10 @@ deploy:
 
 # hexo-theme-zxcvb specific configurations
 
+menu:
+  Home: /
+  Archives: /archives
+  RSS: /atom.xml
 source_repo: https://github.com/haishanh/terminal/blob/master
 
 footer: <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br>
