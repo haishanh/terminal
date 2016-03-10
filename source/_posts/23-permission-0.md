@@ -1,6 +1,6 @@
 ---
 title: Linux中的文件权限
-date:
+date: 2016-03-07
 updated: 2016-03-07
 ---
 ## 文件和目录
