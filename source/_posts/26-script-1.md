@@ -3,6 +3,8 @@ title: 各种shell
 date: 2016-03-17
 updated: 2016-03-17
 ---
+![Bash log](http://7fva40.com1.z0.glb.clouddn.com/bash-bg.png)
+
 其实shell不止bash一种。比如说：
 
  - **sh**(Bourne Shell)，sh是Unix系统最开始默认的shell。它简洁，紧凑。在今天，基本上所有的Unix like系统都仍然安装有sh。
