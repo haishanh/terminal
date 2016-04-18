@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>touch | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/4-touch/">touch</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 5, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>一般用来产生一个空文件。但其实<code>touch</code>是用来修改文件的access和modification时间为当前时间。</p>
+<h2 id="知识豆"><a href="#知识豆" class="headerlink" title="知识豆"></a>知识豆</h2><p>在Linux上一个文件有三个时间戳属性：</p>
+<ul>
+<li>access time(<strong>atime</strong>) 表示该文件上次被读取的时间</li>
+<li>modify time(<strong>mtime</strong>) 表示该文件<strong>内容</strong>上次被修改的时间</li>
+<li>change time(<strong>ctime</strong>) 表示该文件状态(metadata)上次被修改的时间。(比如说修改权限)</li>
+</ul>
+<p>使用<code>ls -l</code>看到的是mtime。使用<code>ls -lt</code>可以使用mtime来排序，新的在前。</p>
+<p><code>ls</code>也可以用来查看<code>atime</code>和<code>ctime</code>。<code>ls -ltc</code>显示ctime，并用其排序。<code>ls -ltu</code>显示<code>atime</code>，并用其排序。</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch [OPTIONS]... [FILE]...</span><br></pre></td></tr></table></figure>
+<h3 id="生成一个空文件"><a href="#生成一个空文件" class="headerlink" title="生成一个空文件"></a>生成一个空文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ls <span class="_">-lt</span></span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  4 19:32 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:32 gulpfile.js</span><br><span class="line"></span><br><span class="line">$ touch newfile</span><br><span class="line"></span><br><span class="line">$ ls <span class="_">-lt</span></span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh   0 Jan  4 19:32 newfile</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  4 19:32 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:32 gulpfile.js</span><br></pre></td></tr></table></figure>
+<p>注意上面<code>newfile</code>的size是0.</p>
+<h3 id="修改文件的mtime"><a href="#修改文件的mtime" class="headerlink" title="修改文件的mtime"></a>修改文件的mtime</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ date</span><br><span class="line">Mon Jan  4 19:52:11 CST 2016</span><br><span class="line"></span><br><span class="line">$ touch setup.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># setup.py的时间从19:32变为19:52</span></span><br><span class="line">$ ls <span class="_">-lt</span></span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  4 19:52 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh   0 Jan  4 19:49 newfile</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:32 gulpfile.js</span><br></pre></td></tr></table></figure>
+<h3 id="只修改atime"><a href="#只修改atime" class="headerlink" title="只修改atime"></a>只修改atime</h3><p>使用<code>-a</code>选项。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ date</span><br><span class="line">Mon Jan  4 19:53:12 CST 2016</span><br><span class="line"></span><br><span class="line">$ touch <span class="_">-a</span> gulpfile.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># mtime未变</span></span><br><span class="line">$ ls <span class="_">-lt</span></span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  4 19:52 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh   0 Jan  4 19:49 newfile</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:32 gulpfile.js</span><br><span class="line"></span><br><span class="line">$ ls -ltu</span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:53 gulpfile.js</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  4 19:52 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh   0 Jan  4 19:49 newfile</span><br></pre></td></tr></table></figure>
+<h3 id="自己指定时间戳"><a href="#自己指定时间戳" class="headerlink" title="自己指定时间戳"></a>自己指定时间戳</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ ls <span class="_">-lt</span></span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  4 19:52 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh   0 Jan  4 19:49 newfile</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:32 gulpfile.js</span><br><span class="line"></span><br><span class="line">$ touch -t 01051234 setup.py</span><br><span class="line"></span><br><span class="line">$ ls <span class="_">-lt</span></span><br><span class="line">total 8</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 483 Jan  5  2016 setup.py</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh   0 Jan  4 19:49 newfile</span><br><span class="line">-rw-rw-r--. 1 haishanh haishanh 324 Jan  4 19:32 gulpfile.js</span><br></pre></td></tr></table></figure>
+<p>其中<code>-t</code>所需参数的格式为[[CC]YY]MMDDhhmm[.ss]。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/01/05
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/4-touch.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/5-mkdir/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/3-cd/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

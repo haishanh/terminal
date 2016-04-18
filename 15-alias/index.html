@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>alias | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/15-alias/">alias</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 25, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p><code>alias</code>就是「别名」的意思。<code>alias</code>用来查看或设置别名。</p>
+<p><code>alias</code>是大部分shell的内置命令(Builtin Command)。</p>
+<h2 id="Synopsis"><a href="#Synopsis" class="headerlink" title="Synopsis"></a>Synopsis</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias [-p] [name[=value] ...]</span><br></pre></td></tr></table></figure>
+<p><code>alias</code>非常有用。通常都是把频繁会用到的命令或操作设置成一个<code>alias</code>，从而减少键盘的敲击。You lazy GEEK ;)</p>
+<p>比如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> d=date</span><br><span class="line"></span><br><span class="line">$ d</span><br><span class="line">Mon Jan 25 14:39:14 CST 2016</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，我们给命令<code>date</code>设置了一个alias<code>d</code>，之后我们就可以把<code>d</code>当<code>date</code>来用了。</p>
+<h3 id="放入选项"><a href="#放入选项" class="headerlink" title="放入选项"></a>放入选项</h3><p>我们也可以放入经常用的选项。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> da=<span class="string">"date '+%y-%m-%d %H:%M'"</span></span><br><span class="line"></span><br><span class="line">$ da</span><br><span class="line">16-01-25 14:42</span><br></pre></td></tr></table></figure>
+<p>因为我们要被<code>alias</code>的命令中包含了空格，所以我们需要将这个命令放到一对<code>&quot;</code>中。假设被<code>alias</code>的命令本身包含了<code>&quot;</code>符号，我们可以用反斜杠(Back Slash)<code>\</code>进行转义。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> da=<span class="string">"date \"+%y-%m-%d %H:%M\""</span></span><br><span class="line"></span><br><span class="line">$ da</span><br><span class="line">16-01-25 14:45</span><br></pre></td></tr></table></figure>
+<p>在使用<code>alias</code>时，就可以把这个alias当作普通命令来使用。该加参数和选项还是继续加。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> l=<span class="string">'ls -l --color=auto'</span></span><br><span class="line"></span><br><span class="line">$ l normal-file</span><br><span class="line">-rw-r--r--. 1 root root 0 Jan 25 15:35 normal-file</span><br><span class="line"></span><br><span class="line">$ l <span class="_">-a</span></span><br><span class="line">total 8</span><br><span class="line">drwxr-xr-x. 2 root root 4096 Jan 25 15:35 .</span><br><span class="line">drwxr-xr-x. 3 root root 4096 Jan 25 15:35 ..</span><br><span class="line">-rw-r--r--. 1 root root    0 Jan 25 15:35 .hidden-file</span><br><span class="line">-rw-r--r--. 1 root root    0 Jan 25 15:35 normal-file</span><br></pre></td></tr></table></figure>
+<h3 id="放入多条命令"><a href="#放入多条命令" class="headerlink" title="放入多条命令"></a>放入多条命令</h3><p><code>alias</code>中我们也可以放入多条命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> d=<span class="string">"echo -n \"DATE: \"; date \"+%y-%m-%d %H:%M\""</span></span><br><span class="line"></span><br><span class="line">$ d</span><br><span class="line">DATE: 16-01-25 14:49</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">alias</span> count3=<span class="string">"echo 3 &amp;&amp; sleep 1 &amp;&amp; echo 2 &amp;&amp; sleep 1 &amp;&amp; echo 1 &amp;&amp; sleep 1 &amp;&amp; echo 0"</span></span><br><span class="line"></span><br><span class="line">$ count3</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<h3 id="查看alias"><a href="#查看alias" class="headerlink" title="查看alias"></a>查看alias</h3><p>直接输入<code>alias</code>命令，我们可以查看当前session的所有alias。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span></span><br><span class="line"><span class="built_in">alias</span> count3=<span class="string">'echo 3 &amp;&amp; sleep 1 \ &amp;&amp; echo 2 &amp;&amp; sleep 1 &amp;&amp; echo 1 &amp;&amp; sleep 1 &amp;&amp; echo 0'</span></span><br><span class="line"><span class="built_in">alias</span> cp=<span class="string">'cp -i'</span></span><br><span class="line"><span class="built_in">alias</span> d=<span class="string">'echo -n "DATE: "; date "+%y-%m-%d %H:%M"'</span></span><br><span class="line"><span class="built_in">alias</span> da=<span class="string">'date "+%y-%m-%d %H:%M"'</span></span><br><span class="line"><span class="built_in">alias</span> l.=<span class="string">'ls -d .* --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">'ls -l --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> ls=<span class="string">'ls --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> mv=<span class="string">'mv -i'</span></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">'rm -i'</span></span><br></pre></td></tr></table></figure>
+<p>在<code>alias</code>后面加上要查看的alias内容，可以查看具体的alias。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> ls</span><br><span class="line"><span class="built_in">alias</span> ls=<span class="string">'ls --color=auto'</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">alias</span> noexist</span><br><span class="line">-bash: <span class="built_in">alias</span>: noexist: not found</span><br></pre></td></tr></table></figure>
+<h3 id="「永久」生效"><a href="#「永久」生效" class="headerlink" title="「永久」生效"></a>「永久」生效</h3><p>假设我们在一个Bash Shell中，设置好了一个alias。如果关闭这个session(通常就是在终端软件中关闭这个session所在的窗口或Tab)，你设置好的alias就会丢失。你不关闭这个session，而新建一个session，你新建的session中也不会有你的alias设置。通常的做法是，把我们的alias设置在新建shell时会source的文件中。</p>
+<p>比如Bash Shell中，我们可以把我们的alias设置都写在<code>.bashrc</code>或<code>.bash_profile</code>中。放在<code>.bashrc</code>中和放在<code>.bash_profile</code>中会一些细微的区别，感兴趣可以自己网上看看这方面的信息。但目前大部分Linux ditro在<code>.bash_profile</code>中也会source<code>.bashrc</code>文件，所以放在哪个文件中都可以。大部分时候，大家都倾向于放到<code>.bashrc</code>中。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># in .bashrc</span></span><br><span class="line"><span class="built_in">alias</span> d=<span class="string">"date"</span></span><br><span class="line"><span class="built_in">alias</span> count3=<span class="string">"echo 3 &amp;&amp; sleep 1 &amp;&amp; echo 2 &amp;&amp; sleep 1 &amp;&amp; echo 1 &amp;&amp; sleep 1 &amp;&amp; echo 0"</span></span><br><span class="line"><span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<h3 id="unalias"><a href="#unalias" class="headerlink" title="unalias"></a>unalias</h3><p><code>unalias</code>命令可以移除一个alias。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span> d=<span class="string">"echo -n \"DATE: \"; date \"+%y-%m-%d %H:%M\""</span></span><br><span class="line"></span><br><span class="line">$ d</span><br><span class="line">DATE: 16-01-25 15:25</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">unalias</span> d</span><br><span class="line"></span><br><span class="line">$ d</span><br><span class="line">-bash: d: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+<h3 id="不同Shell中alias语法差异"><a href="#不同Shell中alias语法差异" class="headerlink" title="不同Shell中alias语法差异"></a>不同Shell中alias语法差异</h3><p>因为<code>alias</code>是builtin，所以不同的shell在设置alias时也有一些差别。</p>
+<p>比如z-shell中的<code>alias</code>语法和Bash中的相同。tc-shell中的<code>alias</code>的设置语法是这样的:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> python3 /home/haishanh/usr/bin/python3</span><br></pre></td></tr></table></figure>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p>注意设置<code>alias</code>的时候，alias名不要和系统现有的命令重名，不然会覆盖掉原有的命令。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/04/18
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/15-alias.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/16-more/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/14-uptime/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

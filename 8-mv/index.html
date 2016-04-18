@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mv | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/8-mv/">mv</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 11, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>移动和重命名文件</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv [OPTION]... [-T] SOURCE DEST</span><br><span class="line">mv [OPTION]... SOURCE... DIRECTORY</span><br></pre></td></tr></table></figure>
+<p><code>mv</code>和<code>cp</code>目录其实非常的像。所以并没有什么可以多说的，可以认为就是<code>cp</code>操作完成以后，把源文件或目录再删除掉。</p>
+<p>当源和目的都是文件或者都是目录时，起的就是重命名的作用</p>
+<h3 id="移动文件或目录"><a href="#移动文件或目录" class="headerlink" title="移动文件或目录"></a>移动文件或目录</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">dir0  dir1  file1  file2  file3</span><br><span class="line"></span><br><span class="line">$ mv dir0 file1 file2 dir1</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">dir1  file3</span><br><span class="line"></span><br><span class="line">$ ls dir1</span><br><span class="line">dir0  file1  file2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移动回原来的位置</span></span><br><span class="line">$ mv dir1/* .</span><br><span class="line"></span><br><span class="line">$ ls dir1</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">dir0  dir1  file1  file2</span><br></pre></td></tr></table></figure>
+<h3 id="重命名文件或目录"><a href="#重命名文件或目录" class="headerlink" title="重命名文件或目录"></a>重命名文件或目录</h3><p>重命名文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">file1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把file1改名成file2</span></span><br><span class="line">$ mv file1 file2</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">file2</span><br></pre></td></tr></table></figure>
+<p>重命名目录或者移动目录时，并不需要在意源目录中是否有东西。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls dir1</span><br><span class="line">filex  subdir</span><br><span class="line"></span><br><span class="line">$ mv dir1 dir2</span><br><span class="line"></span><br><span class="line">$ ls dir2</span><br><span class="line">filex  subdir</span><br></pre></td></tr></table></figure>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/01/07
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/8-mv.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/9-cat/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/7-cp/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

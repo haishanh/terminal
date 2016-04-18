@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>man | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/20-man/">man</a>
+        
+      </h1>
+      
+      <span class="post-meta">February 29, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>manual page(或man page, manpage)是Unix-like系统上非常通用的文档/手册的存在形式。命令<code>man</code>就是用来查看这些手册。任何时候，遇到不会用的命令或者看到了某个命令不熟悉的用法，你有应该「man一下」。</p>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>先来看例子。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">man mkdir</span><br><span class="line">man sendto</span><br></pre></td></tr></table></figure>
+<p>一般情况下，运行上面的第一个命令你可以查看命令<code>mkdir</code>的用法，运行第二命令你可以查看C语言socket发送函数<code>sendto</code>的用法。</p>
+<h2 id="分类-section"><a href="#分类-section" class="headerlink" title="分类/section"></a>分类/section</h2><p>正如上面例子中看到的，man可以查看的手册不仅仅是平时用的一些命令。man page包含了各种乱七八糟的东西，有命令手册，有函数文档（后面会将命令/工具/函数等统称为工具）。其实系统中的手册分9个section，如下：</p>
+<ol>
+<li>可执行程序或shell命令</li>
+<li>系统调用(kernel提供的函数)</li>
+<li>库调用(系统上安装的库提供的函数)</li>
+<li>特殊文件(通常在/dev中)</li>
+<li>文件格式规范 比如/etc/passwd</li>
+<li>游戏</li>
+<li>其他杂项</li>
+<li>系统管理员命令(通常只能root使用)</li>
+</ol>
+<p>一般我们不会去管这些section，但需要知道它的存在。这个地方的section可以理解成<em>分类</em>。在前面的例子中我们看到man既能查看普通的命令，又可以查看C语言函数，如果有两个工具名字一样，怎么办呢。你现在可以试试在你的terminal中分别输入以下命令看看：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">man 1 <span class="built_in">printf</span></span><br><span class="line">man 3 <span class="built_in">printf</span></span><br></pre></td></tr></table></figure>
+<p>上面第一条命令查看的是可以在shell中直接使用的<code>printf</code>命令的手册，在man page的最上面写着<em>User Commands</em>。第二条命令查看的是C语言中的<code>printf</code>函数的手册，最上面写着<em>Linux Programmer’s Manual</em>。如果省略命令中的数字，则默认查看的是shell的<code>printf</code>手册。</p>
+<h2 id="man-page组成"><a href="#man-page组成" class="headerlink" title="man page组成"></a>man page组成</h2><p>一个完整的man page包含这些模块：</p>
+<ul>
+<li><strong>NAME</strong> man page所说明的工具的名字，通常还包含一个简短的介绍</li>
+<li><strong>SYNOPSIS</strong> 用法概要，一般就是把所有的选项和参数列出来</li>
+<li><strong>DESCRIPTION</strong> 对该工具的详细描述</li>
+<li><strong>OPTIONS</strong> 命令中各选项的使用</li>
+<li><strong>EXIT STATUS</strong> 退出值的含义</li>
+<li><strong>RETURN VALUE</strong> 返回值的含义</li>
+<li><strong>ERRORS</strong> 通常函数调用会出现的错误</li>
+<li><strong>ENVIRONMENT</strong> 相关的环境变量</li>
+<li><strong>FILES</strong> 相关的文件</li>
+<li><strong>VERSIONS</strong> 版本</li>
+<li><strong>NOTES</strong> 一般是手册作者的一些提醒</li>
+<li><strong>BUGS</strong> 该工具中已知的bug</li>
+<li><strong>EXAMPLE</strong> 使用的例子</li>
+<li><strong>AUTHORS</strong> 作者</li>
+<li><strong>HISTORY</strong> 历史</li>
+<li><strong>SEE ALSO</strong> 相关内容</li>
+</ul>
+<p>不同的man page可能包含不同的模块，也会包含上面没提到的模块。</p>
+<p>在<strong>SEE ALSO</strong>中我们可以看到更多相关的内容，一般同名工具也会放在这。当你查看的<code>printf</code>不是你想查看的那个，你在SEE ALSO中通常可以看到别的section中<code>printf</code>的section号。</p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><h3 id="分页器"><a href="#分页器" class="headerlink" title="分页器"></a>分页器</h3><p>man page默认使用<code>less</code>作为分页器。所以<code>less</code>中的命令都可以在man page中使用，搜索什么的很方便。</p>
+<h3 id="SYNOPSIS规范"><a href="#SYNOPSIS规范" class="headerlink" title="SYNOPSIS规范"></a>SYNOPSIS规范</h3><p>在说明一个命令的用法时，你通常看到的这样：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir [OPTION]... DIRECTORY...</span><br></pre></td></tr></table></figure>
+<p>很多terminal软件中，你还会发现其中”mkdir”是粗体。</p>
+<p>通常规范如下：</p>
+<ul>
+<li><strong>粗体字</strong> - 表示字面字符串，你在使用的时候照抄不误</li>
+<li><em>斜体字</em> - 表示可以替换的参数</li>
+<li>[-a] - 表示<code>-a</code>是选项</li>
+<li>[-abc] - 表示<code>-a</code>, <code>-b</code>, <code>-c</code>都是选项，当然你也可以一起使用</li>
+<li>-a|-b - 表示选项<code>-a</code>和<code>-b</code>不能一起使用</li>
+<li>DIRECTORY… - 表示DIRECTORY这个参数可以有多个</li>
+<li>[expression]… - 方括号中的表达式expression可以有多个</li>
+</ul>
+<p>需要注意的是，在很多terminal软件和设备可能不支持粗体和斜体字体的显示。还有，很多工具没有很好的遵循这个规范，或者有非常复杂的用法难以用上面的记法进行描述。</p>
+<h3 id="搜索已有的man-page"><a href="#搜索已有的man-page" class="headerlink" title="搜索已有的man page"></a>搜索已有的man page</h3><p>关键字搜索。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ man -k <span class="built_in">printf</span></span><br><span class="line">asprintf (3)         - <span class="built_in">print</span> to allocated string</span><br><span class="line">ber_<span class="built_in">printf</span> (3)       - OpenLDAP LBER simplified Basic Encoding Rules library routines <span class="keyword">for</span> encoding</span><br><span class="line">curl_mprintf (3)     - formatted output conversion</span><br><span class="line">dprintf (3)          - <span class="built_in">print</span> to a file descriptor</span><br><span class="line">format (n)           - Format a string <span class="keyword">in</span> the style of sprintf</span><br><span class="line">fprintf (3)          - formatted output conversion</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>支持使用正则表达式搜索。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ man -k ^<span class="built_in">printf</span>$</span><br><span class="line"><span class="built_in">printf</span> (1)           - format and <span class="built_in">print</span> data</span><br><span class="line"><span class="built_in">printf</span> (1p)          - write formatted output</span><br><span class="line"><span class="built_in">printf</span> (3)           - formatted output conversion</span><br><span class="line"><span class="built_in">printf</span> (3p)          - <span class="built_in">print</span> formatted output</span><br></pre></td></tr></table></figure>
+<h3 id="找出man-page源文件"><a href="#找出man-page源文件" class="headerlink" title="找出man page源文件"></a>找出man page源文件</h3><p>man page使用GNU troff(groff)格式的源文件进行格式化显示。假设想找到该原文件的位置，可以这样：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ man -w mkdir</span><br><span class="line">/usr/share/man/man1/mkdir.1.gz</span><br></pre></td></tr></table></figure>
+<h3 id="在线手册"><a href="#在线手册" class="headerlink" title="在线手册"></a>在线手册</h3><p>很多网站也提供在线查询manpage的功能。比如:</p>
+<ul>
+<li>man7 <a href="http://man7.org/linux/man-pages/" target="_blank" rel="external">man7.org/linux/man-pages/</a></li>
+<li>die.net <a href="http://linux.die.net/man/" target="_blank" rel="external">linux.die.net/man/</a></li>
+</ul>
+<p>这些站点的好处就是，manpage中提及其他工具时都使用了可点击的链接，这可以让你任意驰骋在manpage的知识海洋中。网页形式的呈现对大部分人也会友好一点，查询不认识的单词什么的也很方便。而且这些站点上的manpage都会是比较新的版本。你不需要bookmark他们，平时搜索资料的时候你经常就能遇到他们。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/02/29
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/20-man.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/21-zip/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/19-which/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

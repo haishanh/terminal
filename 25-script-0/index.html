@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bash脚本基础 | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/25-script-0/">Bash脚本基础</a>
+        
+      </h1>
+      
+      <span class="post-meta">March 10, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="什么是Bash脚本"><a href="#什么是Bash脚本" class="headerlink" title="什么是Bash脚本"></a>什么是Bash脚本</h2><p>对于我来说，Bash脚本就是Bash命令的集合。运行脚本的时候，会按(一定的)顺序执行其中的命令。这些命令可以是shell builtin命令，系统上自带的软件命令，也可以是自己安装的软件的命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">date</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Hello"</span></span><br></pre></td></tr></table></figure>
+<p>比如说你把以上内容保存到文件<code>script</code>中。然后运行<code>bash script</code>就可以运行这个脚本了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bash script</span><br><span class="line">Wed Mar  9 17:14:55 CST 2016</span><br><span class="line">Hello</span><br></pre></td></tr></table></figure>
+<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>一般好的practice是使用<code>.sh</code>作为Bash脚本文件的后缀，所以上面的脚本可以命名成<code>hello.sh</code>，要运行这个脚本仍然是执行<code>bash hello.sh</code>。</p>
+<p>但你也可以给脚本可执行的权限。然后执行脚本。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x hello.sh</span><br><span class="line"></span><br><span class="line">$ ./hello.sh</span><br><span class="line">Wed Mar  9 17:15:16 CST 2016</span><br><span class="line">Hello</span><br></pre></td></tr></table></figure>
+<p>通常情况下，都可以正常执行。但Best Practice是在脚本的最开始的第一行加入<a href="https://en.wikipedia.org/wiki/Shebang_(Unix)" target="_blank" rel="external">shebang</a> <code>#!/bin/bash</code></p>
+<p>脚本的运行，实际上通过解释器对脚本中的指令进行解释来执行的。Shebang可以用来指明具体用哪个解释器。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">date</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Hello"</span></span><br></pre></td></tr></table></figure>
+<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><p>脚本中的逻辑让脚本变的非常强大。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line">hour=$(date +%H)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$hour</span> -le 12 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Good morning!"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Good afternoon!"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>上面的脚本通过判断当前时间的小时数是否小于等于12来输出上午好，还是输出下午好。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ date</span><br><span class="line">Wed Mar  9 18:48:16 CST 2016</span><br><span class="line"></span><br><span class="line">$ bash greeting.sh</span><br><span class="line">Good afternoon!</span><br></pre></td></tr></table></figure>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>可重用的命令和逻辑，可以放到函数中。这样我们变可以进行重用。加上参数的使用，可以变得更灵活。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="function"><span class="title">dash_it</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"== <span class="variable">$@</span> =="</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dash_it hello</span><br><span class="line">dash_it what</span><br></pre></td></tr></table></figure>
+<p>上面的脚本中定义了一个函数<code>dash_it()</code>，其作用就是，把其所有输入参数当作一个整体，在其前后各加上2个”=”号和1个空格，并输出。运行一下看看：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bash func.sh</span><br><span class="line">== hello ==</span><br><span class="line">== what is wrong with you ==</span><br></pre></td></tr></table></figure>
+<p>That’s all.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/03/08
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/25-script-0.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/26-script-1/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/24-permission-1/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

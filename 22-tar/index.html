@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tar | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/22-tar/">tar</a>
+        
+      </h1>
+      
+      <span class="post-meta">March 3, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>命令<code>tar</code>用来归档(Archive)文件或文件夹。通常我们用<code>tar</code>把一个或多个文件（夹）打包成一个文件。<code>tar</code>非常常用，所以它的基本用法应该要熟练掌握。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar [OPTION...] [FILE]...</span><br></pre></td></tr></table></figure>
+<h3 id="打包-归档"><a href="#打包-归档" class="headerlink" title="打包/归档"></a>打包/归档</h3><p>打包一个文件夹：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">bye.txt  dir0  hello.txt</span><br><span class="line"></span><br><span class="line">$ ls dir0</span><br><span class="line">file0  file1  subdir</span><br><span class="line"></span><br><span class="line">$ tar -cf dir0.tar dir0</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">bye.txt  dir0  dir0.tar  hello.txt</span><br></pre></td></tr></table></figure>
+<p>打包多个文件和文件夹：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar -cf important-files.tar bye.txt hello.txt dir0</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">bye.txt  dir0  hello.txt  important-files.tar</span><br></pre></td></tr></table></figure>
+<p>其中<code>-c</code>(<code>--create</code>)选项表示创建一个归档。而<code>-f ARCHIVE</code>(<code>--file=ARCHIVE</code>)指明要生成的归档的名字。可以看到打包完，源文件仍保存在文件系统中。</p>
+<h3 id="提取-解包-解归档"><a href="#提取-解包-解归档" class="headerlink" title="提取/解包/解归档"></a>提取/解包/解归档</h3><p>使用<code>-x/--extract/--get</code>选项可以对归档文件进行解包。此时<code>-f ARCHIVE</code>指明被解包的归档文件名字。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir new</span><br><span class="line"></span><br><span class="line">$ cp important-files.tar new/</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> new</span><br><span class="line"></span><br><span class="line">$ tar -xf important-files.tar</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">bye.txt  dir0  hello.txt  important-files.tar</span><br></pre></td></tr></table></figure>
+<p>解包出来的目录结构与打包的时候一致，并不会将归档解包到一个单独的以归档名字命名的文件夹中，这一点需要特别注意。我们可以使用选项<code>-C DIR / --directory=DIR</code>，将归档解包到指定的目录<code>DIR</code>中。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir important</span><br><span class="line"></span><br><span class="line">$ tar -xf important-files.tar -C important</span><br><span class="line"></span><br><span class="line">$ ls important</span><br><span class="line">bye.txt  dir0  hello.txt</span><br></pre></td></tr></table></figure>
+<h3 id="Verbose"><a href="#Verbose" class="headerlink" title="Verbose"></a>Verbose</h3><p>在上面所有的例子中，不管是打包还是解包，运行tar时都没有输出。我们可以使用<code>-v / --verbose</code>来让<code>tar</code>在运行的过程中有输出。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打包</span></span><br><span class="line">$ tar -cvf important-files.tar hello.txt bye.txt dir0</span><br><span class="line">hello.txt</span><br><span class="line">bye.txt</span><br><span class="line">dir0/</span><br><span class="line">dir0/file0</span><br><span class="line">dir0/file1</span><br><span class="line">dir0/subdir/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解包</span></span><br><span class="line">$ tar -xvf important-files.tar -C important</span><br><span class="line">bye.txt</span><br><span class="line">hello.txt</span><br><span class="line">dir0/</span><br><span class="line">dir0/file0</span><br><span class="line">dir0/file1</span><br><span class="line">dir0/subdir/</span><br></pre></td></tr></table></figure>
+<p>一般在使用<code>tar</code>时，我们都会使用<code>-v</code>选项，这样可以容易确定操作的正确性。</p>
+<h3 id="不解包列出内容"><a href="#不解包列出内容" class="headerlink" title="不解包列出内容"></a>不解包列出内容</h3><p>如果我们不清楚归档中的内容，也不想先解包，此时可以使用<code>-t / --list</code>选项在不解包的情况下，列出归档中的内容。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ tar -tf important-files.tar</span><br><span class="line">bye.txt</span><br><span class="line">hello.txt</span><br><span class="line">dir0/</span><br><span class="line">dir0/file0</span><br><span class="line">dir0/file1</span><br><span class="line">dir0/subdir/</span><br><span class="line"></span><br><span class="line">$ tar -tvf important-files.tar</span><br><span class="line">-rw-rw-r-- haishanh/haishanh 9 2016-02-29 20:00 bye.txt</span><br><span class="line">-rw-rw-r-- haishanh/haishanh 12 2016-02-29 19:59 hello.txt</span><br><span class="line">drwxrwxr-x haishanh/haishanh  0 2016-02-29 21:14 dir0/</span><br><span class="line">-rw-rw-r-- haishanh/haishanh  6 2016-02-29 21:12 dir0/file0</span><br><span class="line">-rw-rw-r-- haishanh/haishanh  5 2016-02-29 21:14 dir0/file1</span><br><span class="line">drwxrwxr-x haishanh/haishanh  0 2016-02-29 21:14 dir0/subdir/</span><br></pre></td></tr></table></figure>
+<h2 id="With-zipping"><a href="#With-zipping" class="headerlink" title="With zipping"></a>With zipping</h2><p><code>tar</code>归档通常和压缩一起使用，来达到即归档又压缩的效果。<code>tar</code>可以通过以下这些选项来指定不同的压缩方法；</p>
+<ul>
+<li><code>-z / --gzip</code> 用来指明使用<code>gzip</code>来压缩或解压</li>
+<li><code>-j / --bzip2</code> 用来指明使用<code>bzip2</code>来压缩或解压</li>
+<li><code>-J / --xz</code> 用来指明使用<code>xz</code>来压缩或解压</li>
+</ul>
+<p>比如用<code>bzip2</code>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ tar -jcvf important-files.tar.bz2 dir0 hello.txt bye.txt</span><br><span class="line">dir0/</span><br><span class="line">dir0/file0</span><br><span class="line">dir0/file1</span><br><span class="line">dir0/subdir/</span><br><span class="line">hello.txt</span><br><span class="line">bye.txt</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">bye.txt  dir0  hello.txt  important-files.tar.bz2</span><br><span class="line"></span><br><span class="line">$ mkdir importantant</span><br><span class="line"></span><br><span class="line">$ tar -jxvf important-files.tar.bz2 -C important</span><br><span class="line">dir0/</span><br><span class="line">dir0/file0</span><br><span class="line">dir0/file1</span><br><span class="line">dir0/subdir/</span><br><span class="line">hello.txt</span><br><span class="line">bye.txt</span><br></pre></td></tr></table></figure>
+<p><code>-z</code>和<code>-J</code>的使用一样。按照惯例，如果使用gzip压缩，文件扩展名用<code>.tar.gz</code>。bzip2压缩，扩展名使用<code>.tar.bz2</code>。xz压缩，扩展名使用<code>.tar.xz</code>。</p>
+<p>需要提及的时，现在<code>tar</code>已经可以自己判断一个归档文件所使用的压缩方法。所以在解包的时候，可以不指定压缩选项，直接压缩。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ tar -Jcvf important-files.tar.gz hello.txt bye.txt</span><br><span class="line">hello.txt</span><br><span class="line">bye.txt</span><br><span class="line"></span><br><span class="line">$ tar zxvf important-files.tar.gz -C important</span><br><span class="line"></span><br><span class="line">gzip: stdin: not <span class="keyword">in</span> gzip format</span><br><span class="line">tar: Child returned status 1</span><br><span class="line">tar: Error is not recoverable: exiting now</span><br><span class="line"></span><br><span class="line">$ tar xvf important-files.tar.gz -C important</span><br><span class="line">hello.txt</span><br><span class="line">bye.txt</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，我们先创建一个xz来压缩的归档，但我们使用gzip压缩时所采用的文件扩展名。此时如果使用<code>-z</code>选项来解包，会报错。但如果不使用压缩选项，反而<code>tar</code>可以正确解包。</p>
+<p>注意到上面的例子中，<code>-zxvf</code>以及<code>-xvf</code>前面的短横线我也省去了吗。这是因为<code>tar</code>内部实现的时候，考虑到不用短横线的情况了，大部分命令使用选项时你都不可以省去它。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/02/29
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/22-tar.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/23-permission-0/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/21-zip/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>脚本注释与debug | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/27-script-2/">脚本注释与debug</a>
+        
+      </h1>
+      
+      <span class="post-meta">March 29, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h2><p>在bash脚本中，以<code>#</code>开头的行会被当作注释。合理的注释可以让阅读脚本的人更容易理解脚本所完成的任务。</p>
+<p>当然，并不是所有以<code>#</code>开头的行都会当作注释。比如下面的例子中，<code>#!/bin/bash</code>是<code>#</code>开头的行，但它是shebang，不是注释。而<code>#hello</code>这样的行，是命令<code>echo</code>参数中的字符串，所以也不是注释。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># "#!" as part of the shebang(used to specify the interpreter)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># "#" as part of the command parameter</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"</span><br><span class="line">#hello</span><br><span class="line">#world</span><br><span class="line">"</span></span><br></pre></td></tr></table></figure>
+<p>这个脚本运行的结果如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ bash t.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#hello</span></span><br><span class="line"><span class="comment">#world</span></span><br></pre></td></tr></table></figure>
+<h2 id="debug脚本"><a href="#debug脚本" class="headerlink" title="debug脚本"></a>debug脚本</h2><p>在要debug段落前面加上<code>set -x</code>就可以让脚本在运行的时候也打印出它真正运行的命令。<code>set +x</code>可以关闭命令打印。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"before enable tracing"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -x</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"after enable tracing"</span></span><br><span class="line">file=<span class="string">"/bin/bash"</span></span><br><span class="line">ls <span class="variable">$file</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> +x</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"after DISABLE tracing"</span></span><br></pre></td></tr></table></figure>
+<p>仔细看一下上面脚本运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ bash d.sh</span><br><span class="line">before <span class="built_in">enable</span> tracing</span><br><span class="line">+ <span class="built_in">echo</span> <span class="string">'after enable tracing'</span></span><br><span class="line">after <span class="built_in">enable</span> tracing</span><br><span class="line">+ file=/bin/bash</span><br><span class="line">+ ls /bin/bash</span><br><span class="line">/bin/bash</span><br><span class="line">+ <span class="built_in">set</span> +x</span><br><span class="line">after DISABLE tracing</span><br></pre></td></tr></table></figure>
+<p>可以看到在<code>set -x</code>和<code>set +x</code>之间的每一条运行的命令，都打印了出来，命令中使用的变量也会打印出其真实值，这些打印的命令都以”+ “开头。当你写的脚本，运行的时候出现奇怪的结果，你不要忘了使用<code>set -x</code>来debug啊。</p>
+<p>This’s all.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/03/29
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/27-script-2.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/28-tree/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/26-script-1/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

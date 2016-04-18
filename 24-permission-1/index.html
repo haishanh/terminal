@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Linux中的文件权限2 | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/24-permission-1/">Linux中的文件权限2</a>
+        
+      </h1>
+      
+      <span class="post-meta">March 8, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <p><img src="http://7fva40.com1.z0.glb.clouddn.com/chmod.jpg" alt="chmod"></p>
+<h2 id="umask"><a href="#umask" class="headerlink" title="umask"></a>umask</h2><p>你有没有想过，创建一个文件或目录时，其默认权限是什么呢。</p>
+<p><code>umask</code>就是干这个事的。如果<code>umask</code>值是<code>022</code>，创建目录时其默认权限会是<code>777</code><strong>逐位</strong>减去<code>022</code>，也就是<code>755</code>，创建文件时的默认权限会是<code>666</code><strong>逐位</strong>减去<code>022</code>，也就是<code>644</code>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">umask</span></span><br><span class="line">0022</span><br><span class="line"></span><br><span class="line">$ touch what</span><br><span class="line">$ ls <span class="_">-l</span> what</span><br><span class="line">-rw-r--r--. 1 root root 0 Mar  9 00:58 what</span><br><span class="line"></span><br><span class="line">$ mkdir whathell</span><br><span class="line">$ ls -ld whathell</span><br><span class="line">drwxr-xr-x. 2 root root 6 Mar  9 00:58 whathell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将umask设置为033</span></span><br><span class="line">$ <span class="built_in">umask</span> 033</span><br><span class="line"></span><br><span class="line">$ touch why</span><br><span class="line"></span><br><span class="line">$ ls <span class="_">-l</span> why</span><br><span class="line">-rw-r--r--. 1 root root 0 Mar  9 01:30 why</span><br><span class="line"></span><br><span class="line">$ mkdir whyhell</span><br><span class="line"></span><br><span class="line">$ ls -ld whyhell</span><br><span class="line">drwxr--r--. 2 root root 6 Mar  9 01:30 whyhell</span><br></pre></td></tr></table></figure>
+<p>上面例子中的<code>umask 033</code>，可以把umask设置成<code>033</code>。</p>
+<p><code>-S</code>选项可以以ugo的形式打印出umask。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">umask</span> -S</span><br><span class="line">u=rwx,g=r,o=r</span><br></pre></td></tr></table></figure>
+<h2 id="特殊文件权限"><a href="#特殊文件权限" class="headerlink" title="特殊文件权限"></a>特殊文件权限</h2><p>特殊权限通常用于可执行文件和公共目录。</p>
+<h3 id="setuid权限"><a href="#setuid权限" class="headerlink" title="setuid权限"></a>setuid权限</h3><p>setuid是<strong>set</strong> <strong>u</strong>ser <strong>id</strong>的缩写。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls <span class="_">-l</span> /bin/passwd</span><br><span class="line">-rwsr-xr-x. 1 root root 27832 Jun 10  2014 /bin/passwd</span><br></pre></td></tr></table></figure>
+<p>可以看到上面的例子中，文件拥有者的权限为<code>rws</code>，此处<code>s</code>就是setuid权限。setuid用于可执行文件。运行该文件的用户，会暂时使用文件拥有这的UID，也就是被给予该文件拥有者的身份。</p>
+<p>通常setuid文件的拥有者是root用户。其作用就是让其他用户可以暂时以超级用户的身份运行该文件，来执行一些特殊任务。</p>
+<h4 id="设置setuid权限"><a href="#设置setuid权限" class="headerlink" title="设置setuid权限"></a>设置setuid权限</h4><p>通过使用<code>chmod</code>在正常权限前再加一个数字<code>4</code>来设置setuid权限。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前用户为haishanh</span></span><br><span class="line">$ tcpdump -i eth0</span><br><span class="line">tcpdump: eth0: You don<span class="string">'t have permission to capture on that device</span><br><span class="line">(socket: Operation not permitted)</span><br><span class="line"></span><br><span class="line">$ which tcpudmp</span><br><span class="line">/usr/sbin/tcpdump</span><br><span class="line"></span><br><span class="line">$ ls -l /usr/sbin/tcpdump</span><br><span class="line">-rwxr-xr-x. 1 root root 838864 Jun 10  2014 /usr/sbin/tcpdump</span><br><span class="line"></span><br><span class="line"># 切换到root</span><br><span class="line">$ su -</span><br><span class="line">Password:  # 此处root用户密码</span><br><span class="line"></span><br><span class="line"># 设置setuid权限</span><br><span class="line">$ chmod 4755 /usr/sbin/tcpdump</span><br><span class="line"></span><br><span class="line"># Ctrl + D 登出root用户</span><br><span class="line"># 回到用户haishanh</span><br><span class="line">$ ls -l /usr/sbin/tcpdump</span><br><span class="line">-rwsr-xr-x. 1 root root 838864 Jun 10  2014 /usr/sbin/tcpdump</span><br><span class="line"></span><br><span class="line">$ tcpdump -i eth0</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子通过给tcpdump(网络数据包抓包软件) setuid权限，来让普通用户也可以来抓包。</p>
+<h4 id="去除setuid权限"><a href="#去除setuid权限" class="headerlink" title="去除setuid权限"></a>去除setuid权限</h4><p>把特殊为设置为0，就可以去除setuid权限了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 0775 /usr/sbin/tcpdump</span><br></pre></td></tr></table></figure>
+<h3 id="setgid权限"><a href="#setgid权限" class="headerlink" title="setgid权限"></a>setgid权限</h3><p>setgid权限和setuid权限类似。运行该文件是，会暂时文件所在组的GID，也就是被给予该文件所在组的用户权限。</p>
+<p>设置setgui权限，特殊位设成<code>2</code>即可。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 2755 /usr/sbin/tcpdump</span><br></pre></td></tr></table></figure>
+<p>如果要同时设置setuid和setgid，特殊为置成<code>6</code>(2+4)即可。</p>
+<h3 id="Sticky-Bit"><a href="#Sticky-Bit" class="headerlink" title="Sticky Bit"></a>Sticky Bit</h3><p>Sticky bit用于保护目录中文件。如果一个目录被设置了Sticky bit，则其中的文件只能被该文件的拥有者，该目录的拥有者，以及root用户所删除。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls -ld /tmp</span><br><span class="line">drwxrwxrwt. 64 root root 4096 Mar  7 23:58 /tmp</span><br></pre></td></tr></table></figure>
+<p>在上面的例子，<code>o</code>部分的权限<code>rwt</code>中的<code>t</code>就表示设置了sticky bit。这就避免了<code>/tmp</code>中的内容被其他用户删除。</p>
+<p>假设不考虑Sticky bit，由于其他用户对目录<code>/tmp</code>有<code>rw</code>权限，所以用户A可以在<code>/tmp</code>中创建一个文件，用户B也可以删除A创建的这个文件。但设置了sticky bit之后，如果B要删除A创建的文件就会报错。(此处A和B不为root。)</p>
+<p><code>chmod</code>上特殊为使用<code>1</code>即可设置sticky bit。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir dir0</span><br><span class="line"></span><br><span class="line">$ ls -ld dir0</span><br><span class="line">drwxr-xr-x. 2 root root 6 Mar  8 00:19 dir0</span><br><span class="line"></span><br><span class="line">$ chmod 1077 dir0</span><br><span class="line"></span><br><span class="line">$ ls -ld dir0</span><br><span class="line">d---rwxrwt. 2 root root 6 Mar  8 00:19 dir0</span><br></pre></td></tr></table></figure>
+<p>正如上述，setuid和setgid的使用其实存在安全性问题。所以用的场景并不多。但我们应该知道它们的存在。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/03/08
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/24-permission-1.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/25-script-0/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/23-permission-0/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

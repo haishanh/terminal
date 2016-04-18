@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>more | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/16-more/">more</a>
+        
+      </h1>
+      
+      <span class="post-meta">February 15, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p><code>more</code>是一个文件翻页器。假设要查看文件<code>file0</code>中的内容，我们可以使用<code>cat file0</code>来显示其中的内容。但如果<code>file0</code>中的内容超过一页(当前终端软件屏幕可以显示的最大行数)，我们就需要拖动终端软件的滚动条来查看文件的全部内容。</p>
+<p>通常，GUI终端软件都有滚动条，但有时我们不是通过GUI终端软件来登录到系统的。比如直接在没有GUI的服务器上操作时，你没法使用鼠标，更不用说滚动条。这个时候，我们就需要翻页器程序来查看文件。用翻页器程序打开文件时，会进入该程序的交互界面，然后使用该程序的相关命令来控制翻页等。<code>more</code>就是这样一个工具。</p>
+<h2 id="Synopsis"><a href="#Synopsis" class="headerlink" title="Synopsis"></a>Synopsis</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more [options] file [...]</span><br></pre></td></tr></table></figure>
+<p><code>more</code>的选项大部分都很少用，感兴趣可以自己看看。当被查看文件的内容的行数不足一个屏幕所占行数时，<code>more</code>的效果和<code>cat</code>差不多。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat file0</span><br><span class="line">content of file0</span><br><span class="line"></span><br><span class="line">$ more file0</span><br><span class="line">content of file0</span><br></pre></td></tr></table></figure>
+<p>但假设文件很长的话，就会进入交互式界面，然后使用相应的命令进行翻页，到文件末会自动退出。</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>对翻页器程序，我们更多的关注进入交互式界面之后的命令操作。<code>more</code>的交互式命令是基于<code>vi</code>的。最需要记住的是命令<code>h</code>(即敲击键盘上的<code>h</code>)，可以用来打开一个简短的交互式命令的帮助。</p>
+<p><code>SPACE</code>(空格键)可以用来翻一页，<code>b</code>可以用来回翻一页，<code>q</code>可以用来退出<code>more</code>。当然还有很多其他命令。</p>
+<p>这些命令用起来都比较反人类，所以大部分时候，我们都会使用另一个翻页器程序<code>less</code>。</p>
+<h3 id="查看多个文件"><a href="#查看多个文件" class="headerlink" title="查看多个文件"></a>查看多个文件</h3><p><code>more</code>可以查看多个文件，多个文件的内容之间会间隔开，如下。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ cat file0</span><br><span class="line">content of file0</span><br><span class="line"></span><br><span class="line">$ cat file1</span><br><span class="line">content of file1</span><br><span class="line"></span><br><span class="line">$ more file0 file1</span><br><span class="line">::::::::::::::</span><br><span class="line">file0</span><br><span class="line">::::::::::::::</span><br><span class="line">content of file0</span><br><span class="line">::::::::::::::</span><br><span class="line">file1</span><br><span class="line">::::::::::::::</span><br><span class="line">content of file1</span><br></pre></td></tr></table></figure>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p>正如前面提到的，我们大部分时候会使用<code>less</code>。所以本文，你看看就行。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/02/14
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/16-more.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/17-less/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/15-alias/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

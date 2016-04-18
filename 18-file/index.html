@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>file | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/18-file/">file</a>
+        
+      </h1>
+      
+      <span class="post-meta">February 23, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p><code>file</code>用来检测一个文件的类型。</p>
+<h2 id="Synopsis"><a href="#Synopsis" class="headerlink" title="Synopsis"></a>Synopsis</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file [-bcEhiklLNnprsvzZ0] [--apple] [--extension] [--mime-encoding] [--mime-type] [<span class="_">-e</span> testname]</span><br><span class="line">     [-F separator] [<span class="_">-f</span> namefile] [-m magicfiles] [-P name=value] file ...</span><br><span class="line">file -C [-m magicfiles]</span><br><span class="line">file [--help]</span><br></pre></td></tr></table></figure>
+<p>从上面的用法或者其man page可以看到<code>file</code>可用的选项挺多的。大部分时候都不使用任何选项，所以在此不做介绍（其实我也不熟 :)）。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>对于文本文件<code>file</code>也会根据文件内容，判断其类型。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个文本文件</span></span><br><span class="line">$ file file0.txt</span><br><span class="line">file0.txt: ASCII text</span><br><span class="line"></span><br><span class="line"><span class="comment"># Bash脚本</span></span><br><span class="line">$ file script.sh</span><br><span class="line">script.sh: Bourne-Again shell script, ASCII text executable</span><br><span class="line"></span><br><span class="line"><span class="comment"># C源文件</span></span><br><span class="line">$ file test.c</span><br><span class="line">test.c: C <span class="built_in">source</span>, ASCII text</span><br></pre></td></tr></table></figure>
+<p><code>file</code>也可以识别可执行文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ file a.out</span><br><span class="line">a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=8df7e51f8d7bdf3df73b20aeba9657512ee524b6, not stripped</span><br><span class="line"></span><br><span class="line">$ file /usr/bin/file</span><br><span class="line">/usr/bin/file: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=10636e26b99b67f759b632dd69ed150558ce24b1, stripped</span><br></pre></td></tr></table></figure>
+<p>媒体文件也不是问题，而且能给出很详细的信息。比如下面的图片文件中，给出了拍摄的相机型号，使用的处理软件等。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ file undertheradar14.mp3</span><br><span class="line">undertheradar14.mp3: Audio file with ID3 version 2.3.0, contains: MPEG ADTS, layer III, v1,  96 kbps, 44.1 kHz, JntStereo</span><br><span class="line"></span><br><span class="line">$ file image.jpg</span><br><span class="line">image.jpg: JPEG image data, JFIF standard 1.02, resolution (DPI), density 72x72, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=14, manufacturer=Canon, model=Canon EOS 5D Mark II, orientation=upper-left, xresolution=209, yresolution=217, resolutionunit=2, software=Adobe Photoshop CS3 Windows, datetime=2014:07:07 17:34:28, GPS-Data], baseline, precision 8, 5616x3744, frames 3</span><br></pre></td></tr></table></figure>
+<p>压缩和归档文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ file file0.txt.gz</span><br><span class="line">file0.txt.gz: gzip compressed data, was <span class="string">"file0.txt"</span>, last modified: Sun Feb 14 15:21:53 2016, from Unix</span><br><span class="line"></span><br><span class="line">$ file a.out.xz</span><br><span class="line">a.out.xz: XZ compressed data</span><br><span class="line"></span><br><span class="line">$ file script.tar</span><br><span class="line">script.tar: POSIX tar archive (GNU)</span><br></pre></td></tr></table></figure>
+<p>设备文件，符号链接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ file /dev/sda1</span><br><span class="line">/dev/sda1: block special (8/1)</span><br><span class="line"></span><br><span class="line">$ file /dev/tty0</span><br><span class="line">/dev/tty0: character special (4/0)</span><br><span class="line"></span><br><span class="line">$ file test.ln</span><br><span class="line">test.ln: symbolic link to test.c</span><br></pre></td></tr></table></figure>
+<p>试试别的「乱七八糟」的文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ruby gem</span></span><br><span class="line">$ file rubygems-update-2.0.15.gem</span><br><span class="line">rubygems-update-2.0.15.gem: POSIX tar archive</span><br><span class="line"></span><br><span class="line"><span class="comment"># Android安装文件</span></span><br><span class="line">$ file shadowsocks-nightly-2.9.7.apk</span><br><span class="line">shadowsocks-nightly-2.9.7.apk: Zip archive data, at least v2.0 to extract</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>file</code>将它们识别为压缩或归档文件。</p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p><code>file</code>是如何判断一个文件类型的呢？</p>
+<p><code>file</code>按以下顺序检测一个文件：文件系统检测，Magic检测和语言检测。</p>
+<p>文件系统检测，主要是判断文件是不是空文件或者是不是其他特殊文件。比如说字符设备文件（用<code>ls -l</code>可以看出来）就是一种特殊文件。</p>
+<p>那什么是Magic检测呢？很多二进制/数据文件在其开头的某个或某些特定字段都会使用特殊的内容来区分其格式。这些特殊内容通常叫做”magic number”。很多应用程序依赖于magic number来识别文件的类型。比如说C源文件编译出来的可执行文件中就包含magic number。</p>
+<p>语言检测主要就是通过检测文本文件开头的一些关键字来来猜测文本的类型。比如说<code>file</code>就是这样判断bash脚本文件和C源文件的。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/02/14
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/18-file.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/19-which/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/17-less/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

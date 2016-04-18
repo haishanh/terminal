@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>pwd | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/2-pwd/">pwd</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 1, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <p><code>pwd</code> is short for <strong>Print (current) Working Directory</strong>.</p>
+<h3 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h3><p>顾名思义就是用来打印出当前所在的目录名字。</p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>1/ 不接任何选项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play/top</span><br></pre></td></tr></table></figure>
+<p>2/ With <code>-P</code>, <code>--physical</code></p>
+<p>假设当前目录是一个指向一个其他目录的符号链接(symlink)，那么<code>pwd</code>默认打印出的目录名字是这个符号链接的名字，使用<code>-P</code>选项可以打印出<strong>最终</strong>指向的「物理」路径。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">top  top-symlink  top-symlink-symlink</span><br><span class="line"></span><br><span class="line">$ ls -ld top-symlink</span><br><span class="line">lrwxrwxrwx 1 vagrant vagrant 3 Dec 31 21:52 top-symlink -&gt; top</span><br><span class="line"></span><br><span class="line">$ ls -ld top-symlink-symlink</span><br><span class="line">lrwxrwxrwx 1 vagrant vagrant 11 Dec 31 21:56 top-symlink-symlink -&gt; top-symlink</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> top-symlink-symlink</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play/top-symlink-symlink</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span> -P</span><br><span class="line">/home/vagrant/repo/play/top</span><br></pre></td></tr></table></figure>
+<h3 id="More"><a href="#More" class="headerlink" title="More"></a>More</h3><p>在Bash中，环境变量<code>PWD</code>也动态包含立刻当前目录。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play/top-symlink-symlink</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$PWD</span></span><br><span class="line">/home/vagrant/repo/play/top-symlink-symlink</span><br></pre></td></tr></table></figure>
+<p>这个变量在脚本中会用的很多。</p>
+<p>That’s it.</p>
+<p>你学会了如何使用<code>pwd</code>命令了。当然这个命令非常简单，但在CLI下用的很多。<code>-P</code>选项其实也很少用，就算在shell脚本里面，人们应该也更倾向于使用<code>readlink</code>。</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/01/01
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/2-pwd.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/3-cd/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/1-ls/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

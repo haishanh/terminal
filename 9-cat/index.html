@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cat | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/9-cat/">cat</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 12, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>将多个文件内容连接起来后，输出到标准输出。</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat [OPTION]... [FILE]...</span><br></pre></td></tr></table></figure>
+<h3 id="显示文件内容"><a href="#显示文件内容" class="headerlink" title="显示文件内容"></a>显示文件内容</h3><p>如果只有一个FILE，则显示该文件的内容。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat file1</span><br><span class="line">Hello world,</span><br><span class="line"></span><br><span class="line">This is file1.</span><br><span class="line"></span><br><span class="line">$ cat file2</span><br><span class="line">Hello there,</span><br><span class="line"></span><br><span class="line">This is file2</span><br></pre></td></tr></table></figure>
+<p>如果FILE有多个，则将它们的内容连接起来输出。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cat file1 file2</span><br><span class="line">Hello world,</span><br><span class="line"></span><br><span class="line">This is file1.</span><br><span class="line">Hello there,</span><br><span class="line"></span><br><span class="line">This is file2</span><br></pre></td></tr></table></figure>
+<h3 id="显示行号"><a href="#显示行号" class="headerlink" title="显示行号"></a>显示行号</h3><p>在输出文件内容时，可以通过<code>-n</code> (<code>--number</code>)选项显示行号。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat -n file1</span><br><span class="line">     1  Hello world,</span><br><span class="line">     2</span><br><span class="line">     3  This is file1.</span><br></pre></td></tr></table></figure>
+<p>如果是多个文件，显示的是连接后的行号。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cat -n file1 file2</span><br><span class="line">     1  Hello world,</span><br><span class="line">     2</span><br><span class="line">     3  This is file1.</span><br><span class="line">     4  Hello there,</span><br><span class="line">     5</span><br><span class="line">     6  This is file2.</span><br></pre></td></tr></table></figure>
+<h3 id="只显示非空行行号"><a href="#只显示非空行行号" class="headerlink" title="只显示非空行行号"></a>只显示非空行行号</h3><p>使用<code>-b</code> (<code>--number-nonblank</code>) 可以用来显示非空行的行号。空行，不计入行数。该选项会覆盖<code>-n</code>选项。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat -b file1</span><br><span class="line">     1  Hello world,</span><br><span class="line"></span><br><span class="line">     2  This is file1.</span><br></pre></td></tr></table></figure>
+<h3 id="去除重复空行"><a href="#去除重复空行" class="headerlink" title="去除重复空行"></a>去除重复空行</h3><p>使用<code>-s</code> (<code>--squeeze-blank</code>)，会将多个<strong>连续</strong>空行缩至一个空行。</p>
+<h3 id="显示非打印字符"><a href="#显示非打印字符" class="headerlink" title="显示非打印字符"></a>显示非打印字符</h3><p><code>-T</code>, <code>--show-tabs</code>可以用来把tab制表符打印成<code>^I</code><br><code>-E</code>, <code>--show-ends</code>可以将换行符打印成<code>$</code><br><code>-v</code>, <code>--show-nonprinting</code>显示非打印字符。</p>
+<p><code>-A</code>，<code>--show-all</code>选项会包含以上三个选项。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cat file3</span><br><span class="line">Hello</span><br><span class="line"> space space</span><br><span class="line"></span><br><span class="line">  &lt;-- this is a tab</span><br><span class="line">This is file3</span><br><span class="line"></span><br><span class="line">$ cat -A file3</span><br><span class="line">Hello $</span><br><span class="line"> space space$</span><br><span class="line">$</span><br><span class="line">^I&lt;-- this is a tab$</span><br><span class="line">This is file3$</span><br></pre></td></tr></table></figure>
+<p>Windows由于和Linux/Unix使用不同的行结束符，所以两者之间的文本文件交换会常常出现问题。经常我们把在Windows上创建的配置文件放到Linux/Unix上就会出现问题。使用<code>-A</code>选项，我们就可以看出其区别。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ cat win.txt</span><br><span class="line">this file is created on a Windows machine</span><br><span class="line"></span><br><span class="line">space space</span><br><span class="line">tab tab tab%</span><br><span class="line"></span><br><span class="line">$ cat -A win.txt</span><br><span class="line">this file is created on a Windows machine^M$</span><br><span class="line">^M$</span><br><span class="line">space space^M$</span><br><span class="line">tab^Itab^Itab%</span><br></pre></td></tr></table></figure>
+<p>可以看到行结束符是<code>^M$</code>，而*nix上是<code>$</code>。</p>
+<h2 id="知识豆"><a href="#知识豆" class="headerlink" title="知识豆"></a>知识豆</h2><h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p><code>cat</code>可以把多个文件连接到一起输出，我们通常可以利用这个特性合并文件。</p>
+<p><code>&gt;</code>符号是<strong>重定向</strong>符号，<code>1&gt;</code>可以重定向程序的标准输出，<code>2&gt;</code>可以重定向程序的标准错误输出。<code>1&gt;</code>可以简写成<code>&gt;</code>。（当然<code>&gt;</code>符号前面也可以是别的大于2的数字，表示将程序的该文件描述符的输出进行重定向，在Shell中我们很少用到）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat file1 file2 &gt; combined</span><br><span class="line"></span><br><span class="line">$ cat combined</span><br><span class="line">Hello world,</span><br><span class="line"></span><br><span class="line">This is file1.</span><br><span class="line">Hello there,</span><br><span class="line"></span><br><span class="line">This is file2</span><br></pre></td></tr></table></figure>
+<h3 id="行结束符"><a href="#行结束符" class="headerlink" title="行结束符"></a>行结束符</h3><p>行结束符，也成换行符，end of line(EOF), line break等。</p>
+<p><code>CR</code>(Carriage Return)，<code>LR</code>(Line Feed)都和打字机有关。LF是把纸张向上移动，CR是把打字机的打字的触头拨至最左。在字符串中用<code>\r</code>表示CR，用<code>\n</code>表示LF。</p>
+<p>Windows使用 <code>CR</code> + <code>LF</code>作为行结束符，而*nix系统使用 <code>LF</code>作为行结束符。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/01/12
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/9-cat.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/10-whoami/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/8-mv/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

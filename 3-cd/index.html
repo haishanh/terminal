@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cd | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/3-cd/">cd</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 2, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>切换工作路径</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> [−L|−P] [directory]</span><br><span class="line"><span class="built_in">cd</span> −</span><br></pre></td></tr></table></figure>
+<h3 id="point-1"><a href="#point-1" class="headerlink" title="point 1"></a>point 1</h3><p>虽然有<code>-L</code>, <code>-P</code>，这两个选项，但我们基本上用不上，我也没见人用过。不加任何参数和选项时，默认切换到当前用户的<strong>HOME</strong>目录。用户的<strong>HOME</strong>通常用符号<code>~</code>表示，对于root用户，其<code>~</code>为<code>/root</code>，对于其它用户(如johh)来说，其<code>~</code><strong>一般</strong>是<code>/home/john</code>。(<code>~</code>一般中文叫做<em>波浪</em>号，英文叫做<em>tilde</em>符号)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@archlinux:~<span class="comment"># cd</span></span><br><span class="line">root@archlinux:~<span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line"></span><br><span class="line">[haishanh@archlinux ~]$ <span class="built_in">cd</span></span><br><span class="line">[haishanh@archlinux ~]$ <span class="built_in">pwd</span></span><br><span class="line">/home/haishanh</span><br></pre></td></tr></table></figure>
+<p><strong>Note</strong>: shell中有个环境变量<code>HOME</code>包含了当前用户HOME目录的名字，在写脚本的时候，这个变量会非常有用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[haishanh@archlinux ~]$ <span class="built_in">echo</span> <span class="variable">$HOME</span></span><br><span class="line">/home/haishanh</span><br></pre></td></tr></table></figure>
+<h3 id="point-2"><a href="#point-2" class="headerlink" title="point 2"></a>point 2</h3><p>如果<code>cd</code>后面接了参数(为一个目录)，则切换到该目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> repo</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant</span><br></pre></td></tr></table></figure>
+<h3 id="point-3"><a href="#point-3" class="headerlink" title="point 3"></a>point 3</h3><p><code>cd -</code>可以切换到前一个工作目录。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> -</span><br><span class="line">~/repo/play</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play</span><br></pre></td></tr></table></figure>
+<p>在shell中，环境变量<code>PWD</code>包含当前工作目录的名字，而<code>OLDPWD</code>包含前一个工作目录的名字。</p>
+<p>如果仔细观察上面的输出结果可以发现，<code>cd -</code>其实不仅切换到前一个工作目录，还会输出切换后的目录名。</p>
+<p>可以认为<code>cd -</code>等于下面的命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$OLDPWD</span>"</span> &amp;&amp; <span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<h2 id="相对路径和绝对路径"><a href="#相对路径和绝对路径" class="headerlink" title="相对路径和绝对路径"></a>相对路径和绝对路径</h2><p>在shell中，<code>.</code>号表示当前目录，<code>..</code>表示当前目录的父级目录。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> .</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo/play</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/vagrant/repo</span><br><span class="line"></span><br><span class="line">$ ls ..</span><br><span class="line">dotfiles  repo  usr</span><br></pre></td></tr></table></figure>
+<p><code>.</code>和<code>..</code>都是相对于当前路径(目录)来说的。</p>
+<p>如果一个路径，是相对于当前路径来说的，就是相对路径。</p>
+<p>相对目录和绝对路径很容易辨别，只要是以<code>/</code>开始的路径，都是绝对路径，比如说<code>/home</code>。而<code>~</code>也是绝对路径，因为它事实上也是展开成<code>/root</code>或<code>/home/&lt;user&gt;</code>的。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 15/12/31
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/3-cd.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/4-touch/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/2-pwd/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

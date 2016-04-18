@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ls | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/1-ls/">ls</a>
+        
+      </h1>
+      
+      <span class="post-meta">December 31, 2015</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p><img src="imgs/ls-with-color.png" alt="ls-with-color"></p>
+<p>Hello, 这是这个公众号的第一篇，好紧张。</p>
+<p>作为一个介绍Unix-like系统上命令行的微信号，第一篇post介绍的必须是<code>ls</code>啊。<code>ls</code> is short for “list”.</p>
+<h3 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h3><p><code>ls</code> 列出目录中的内容。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [OPTIONS]... [FILE]...</span><br></pre></td></tr></table></figure>
+<h3 id="常用选项和例子"><a href="#常用选项和例子" class="headerlink" title="常用选项和例子"></a>常用选项和例子</h3><p><code>-a</code>, <code>--all</code> 列出以”.”开头的「隐藏」文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">dir0  dir1  file0  file1</span><br><span class="line"></span><br><span class="line">$ ls <span class="_">-a</span></span><br><span class="line">.  ..  .dotfile  dir0  dir1  file0  file1</span><br></pre></td></tr></table></figure>
+<p><code>-l</code> 显示详细信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls <span class="_">-l</span></span><br><span class="line">total 133</span><br><span class="line">drwx---r-x+ 1 haishan haishan      0 Dec 31 13:08 dir0</span><br><span class="line">drwx---r-x+ 1 haishan haishan      0 Dec 31 12:28 dir1</span><br><span class="line">-rw----r--  1 haishan haishan   1275 Dec 31 13:43 file0</span><br><span class="line">-rw----r--  1 haishan haishan 129567 Dec 31 13:43 file1</span><br><span class="line">-rwx---r-x  1 haishan haishan     25 Dec 31 13:44 test.sh</span><br></pre></td></tr></table></figure>
+<p><code>-h</code>, <code>--human-readable</code> 友好的方式显示size的单位(默认是Byte)，一般是和<code>-l</code>一起使用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls -lh</span><br><span class="line">total 133K</span><br><span class="line">drwx---r-x+ 1 haishan haishan    0 Dec 31 13:08 dir0</span><br><span class="line">drwx---r-x+ 1 haishan haishan    0 Dec 31 12:28 dir1</span><br><span class="line">-rw----r--  1 haishan haishan 1.3K Dec 31 13:43 file0</span><br><span class="line">-rw----r--  1 haishan haishan 127K Dec 31 13:43 file1</span><br><span class="line">-rwx---r-x  1 haishan haishan   25 Dec 31 13:44 test.sh</span><br></pre></td></tr></table></figure>
+<p><code>-t</code> 按时间顺序排列， 最新的在前</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls -lht</span><br><span class="line">total 133K</span><br><span class="line">-rwx---r-x  1 haishan haishan   25 Dec 31 13:44 test.sh</span><br><span class="line">-rw----r--  1 haishan haishan 127K Dec 31 13:43 file1</span><br><span class="line">-rw----r--  1 haishan haishan 1.3K Dec 31 13:43 file0</span><br><span class="line">drwx---r-x+ 1 haishan haishan    0 Dec 31 13:08 dir0</span><br><span class="line">drwx---r-x+ 1 haishan haishan    0 Dec 31 12:28 dir1</span><br></pre></td></tr></table></figure>
+<p>还有一个比较有意思的是<code>--color</code>，这个需要给参数。可以是<code>--color=never</code>或<code>--color=auto</code>，使用auto时，ls会根据文件的类型和权限来显示不同的颜色，见题图。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls --color=auto</span><br><span class="line">dir0  dir1  file0  file1  test.sh</span><br></pre></td></tr></table></figure>
+<p>很多发行版会通过alias的方式让ls默认使用<code>--color=auto</code>。比如我们可以把以下行添加到<code>~/.bashrc</code>中（在此假设你用的Shell是Bash）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> ls=<span class="string">"ls --color=auto"</span></span><br></pre></td></tr></table></figure>
+<p>source这个文件，来立即生效。或者你也可以新进一个shell。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>That’s it.</p>
+<p><strong>First POST, yeah!!!</strong></p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 15/12/31
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/1-ls.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/2-pwd/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

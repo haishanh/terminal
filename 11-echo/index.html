@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>echo | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/11-echo/">echo</a>
+        
+      </h1>
+      
+      <span class="post-meta">January 18, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>显示一行信息</p>
+<h2 id="Synopsis"><a href="#Synopsis" class="headerlink" title="Synopsis"></a>Synopsis</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo [SHORT-OPTION]... [STRING]...</span><br><span class="line">echo LONG-OPTION</span><br></pre></td></tr></table></figure>
+<p><code>echo</code>默认会输出到标准输出。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> hello</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>当然我们也可以将其输出重定向到文件中。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"hello"</span> &gt; file0</span><br><span class="line"></span><br><span class="line">$ cat file0</span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"world"</span> &gt;&gt; file0</span><br><span class="line"></span><br><span class="line">$ cat file0</span><br><span class="line">hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+<h2 id="尾部不加换行符"><a href="#尾部不加换行符" class="headerlink" title="尾部不加换行符"></a>尾部不加换行符</h2><p><code>echo</code> 默认会在最后加上一个换行符，可以使用<code>-n</code>选项让其结尾不换行。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@localhost $ <span class="built_in">echo</span> -n hello</span><br><span class="line">helloroot@localhost $</span><br></pre></td></tr></table></figure>
+<h2 id="转义生效"><a href="#转义生效" class="headerlink" title="转义生效"></a>转义生效</h2><p>我们都知道<code>\n</code>表示换行，<code>\t</code>表示一个tab，如果我们在<code>echo</code>中使用这些字符会是这样：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"a\tb"</span></span><br><span class="line">a\tb</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>\t</code>没有其作用，如果我们使用<code>-e</code>选项就可以让其生效。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"a\tb"</span></span><br><span class="line">a       b</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"a\nb"</span></span><br><span class="line">a</span><br><span class="line">b</span><br></pre></td></tr></table></figure>
+<p><em>注意</em>: 对于字符字面值，我们通常不需要将其放到引号中。但如果其中包含了转义字符，必须要将其放入引号中，单引号和双引号都可以。</p>
+<p>现在你可以试试这个：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="_">-e</span> <span class="string">"\e[0;31ma\e[0m"</span></span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+<p>如果你的终端软件支持且你没有改动其配色的话，你会看到输出的”a”是红色。输出更多颜色的方法，你自己网上再找找看。</p>
+<h2 id="查看变量内容"><a href="#查看变量内容" class="headerlink" title="查看变量内容"></a>查看变量内容</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ a=<span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span>"</span></span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span> world"</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>上面的第一条命令中，我们给变量<code>a</code>赋了一个值。然后我们可以用<code>echo</code>来查看其值，这在脚本中尤其有用。查看的变量可以其他字符串放在一起。这很方便，但有时也会让人分辨不出变量和字面字符。比如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ a=<span class="string">"hi"</span></span><br><span class="line"></span><br><span class="line">$ ab=<span class="string">"hey"</span></span><br><span class="line"></span><br><span class="line">$ abc=<span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$abc</span>"</span></span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>如果你不看最后的输出，你可能并不能确定其结果。所以好习惯是，一但在有可能出现歧义的地方，就把变量放到一对花括号<code>{}</code>中。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;abc&#125;</span>def"</span></span><br><span class="line">hellodef</span><br></pre></td></tr></table></figure>
+<p>当然，不仅可以用<code>echo</code>来查看自己创建的变量值，你也可以查看shell环境变量的值。比如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$PATH</span>"</span></span><br><span class="line">/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
+<p><em>注意</em>: 当涉及到变量时，我们可以不使用引号，但如果使用，只能使用双引号。看看下面的例子。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">'$&#123;abc&#125;'</span></span><br><span class="line"><span class="variable">$&#123;abc&#125;</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;abc&#125;</span>"</span></span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>在Shell中，通常会使用空白字符作为分隔字段。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> hello world</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，hello是echo的第一个参数，而world是第二参数。在下面的例子中，输出不会有变化，但echo只有<strong>一个</strong>参数”hello world”。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"hello world"</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>所以大部分时候，为了避免意想不到的结果，应该是一个整体的字符串(包含其中的变量)，我们最好将其放到一对双引号中。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/01/18
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/11-echo.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/12-date/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/10-whoami/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

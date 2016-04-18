@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>各种shell | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/26-script-1/">各种shell</a>
+        
+      </h1>
+      
+      <span class="post-meta">March 17, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <p><img src="http://7fva40.com1.z0.glb.clouddn.com/bash-bg.png" alt="Bash log"></p>
+<p>其实shell不止bash一种。比如说：</p>
+<ul>
+<li><strong>sh</strong>(Bourne Shell)，sh是Unix系统最开始默认的shell。它简洁，紧凑。在今天，基本上所有的Unix like系统都仍然安装有sh。</li>
+<li><strong>bash</strong>(Bourne Again Shell), bash是标准GNU shell。基本上所有的Linux发行版都使用bash作为默认shell。bash是应用最广泛的shell，即使有一些发行版不使用bash做默认shell，它也不可能没安装bash。而且bash是sh的超集，兼容sh的语法。</li>
+<li><strong>csh</strong>(C Shell), csh的语法来源于C语言，所以C程序员很喜欢csh。</li>
+<li><strong>tcsh*</strong>(TENEX C Shell), tcsh是csh的超集，更友好，速度更快。</li>
+<li><strong>ksh</strong>(Korn Shell)，深受有Unix背景的用户所喜欢。</li>
+<li><strong>zsh</strong>(Z Shell)，zsh的命令补全功能强大，而且可扩展性很好，对bash的兼容性也很好。</li>
+<li><strong>fish</strong>(Friendly Interactive Shell)，和zsh很像，在命令补全和扩展上比zsh更极端。</li>
+</ul>
+<p>文件’/etc/shells’中可以看到系统<strong>可以使用</strong>的shell</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/shells</span><br><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/sbin/nologin</span><br><span class="line">/usr/bin/sh</span><br><span class="line">/usr/bin/bash</span><br><span class="line">/usr/sbin/nologin</span><br><span class="line">/bin/tcsh</span><br><span class="line">/bin/csh</span><br><span class="line">/bin/git-shell</span><br><span class="line">/usr/bin/tmux</span><br><span class="line">/bin/zsh</span><br></pre></td></tr></table></figure>
+<p>然后可以使用类似下面的命令，却更换当前用户的默认shell</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh <span class="_">-s</span> /bin/zsh</span><br></pre></td></tr></table></figure>
+<p>使用<code>chsh -l</code>也可以列出可以更换的shell。如果你的系统上安装了某个不在该列表中的shell，可以自己手动将其加入到<code>/etc/shells</code>中。</p>
+<p>那为什么要学的是bash脚本，而不是其他shell脚本呢。最主要的原因就是bash是最普遍被使用的shell，同时它遵循IEEE POSIX的shell标准。bash的普遍使用，意味着写的脚本在各个Unix like的系统上都可以跑。</p>
+<p>需要说明的是，用户当前使用的可能是其他shell，比如zsh，但这并不影响他在当前shell的环境下运行bash的脚本。你可以直接在zsh中使用bash命令来运行一个脚本。如果这个脚本中包含bash的shebang，并且有可执行权限，你也可以直接运行这个脚本（不需要在前面加上bash命令）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ bash hello.sh</span><br><span class="line"></span><br><span class="line">$ cat hello.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">$ chmod +x hello.sh</span><br><span class="line"></span><br><span class="line">$ ./hello.sh</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>正如前面提到的，不同的shell语法上会有一些区别。所以一定要很明确的知道自己当前用的是什么shell。大部分时候我们学习的都是适用于bash shell的命令，如果你当前使用的是其他shell比如csh，你可能会发现你的命令运行不了，或者结果不是你想要的。这个时候你就最好进入bash，再运行你那个命令。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/03/17
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/26-script-1.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/27-script-2/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/25-script-0/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tree | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/28-tree/">tree</a>
+        
+      </h1>
+      
+      <span class="post-meta">April 18, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>tree</code> 用来列出一个目录的树形结构，包含目录文件，并且是循环式的，就是说子目录树也会被展开。</p>
+<p>很多 Linux distro(发行版) 并没有默认安装 <code>tree</code>，但 <code>tree</code> 是一个非常有用的命令，所以如果你的系统上没有的话，可以自己安装一下。</p>
+<h2 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h2><p>不用任何选项时：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ tree</span><br><span class="line">.</span><br><span class="line">├── dir1</span><br><span class="line">│   ├── build</span><br><span class="line">│   │   └── makefile</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── src</span><br><span class="line">│       ├── calc.c</span><br><span class="line">│       ├── calc.h</span><br><span class="line">│       ├── debug.c</span><br><span class="line">│       ├── main.c</span><br><span class="line">│       └── start.c</span><br><span class="line">├── dir2</span><br><span class="line">└── hello</span><br><span class="line"></span><br><span class="line">4 directories, 8 files</span><br></pre></td></tr></table></figure>
+<p>使用 <code>-d</code> 选项只列出目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ tree <span class="_">-d</span></span><br><span class="line">.</span><br><span class="line">├── dir1</span><br><span class="line">│   ├── build</span><br><span class="line">│   └── src</span><br><span class="line">└── dir2</span><br><span class="line"></span><br><span class="line">4 directories</span><br></pre></td></tr></table></figure>
+<p><code>-l</code> 跟随symlink，就是说如果symlink是指向一个目录，则该目录也会被展开</p>
+<p><code>-f</code> 打印从当前目录开始的完整目录的文件名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ tree <span class="_">-f</span></span><br><span class="line">.</span><br><span class="line">├── ./dir1</span><br><span class="line">│   ├── ./dir1/build</span><br><span class="line">│   │   └── ./dir1/build/makefile</span><br><span class="line">│   ├── ./dir1/README.md</span><br><span class="line">│   └── ./dir1/src</span><br><span class="line">│       ├── ./dir1/src/calc.c</span><br><span class="line">│       ├── ./dir1/src/calc.h</span><br><span class="line">│       ├── ./dir1/src/debug.c</span><br><span class="line">│       ├── ./dir1/src/main.c</span><br><span class="line">│       └── ./dir1/src/start.c</span><br><span class="line">├── ./dir2</span><br><span class="line">└── ./hello</span><br><span class="line"></span><br><span class="line">4 directories, 8 files</span><br></pre></td></tr></table></figure>
+<p><code>-L &lt;level&gt;</code> 指定最大目录层数为<code>&lt;level&gt;</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ tree -L 2</span><br><span class="line">.</span><br><span class="line">├── dir1</span><br><span class="line">│   ├── build</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── src</span><br><span class="line">├── dir2</span><br><span class="line">└── hello</span><br><span class="line"></span><br><span class="line">4 directories, 2 files</span><br></pre></td></tr></table></figure>
+<p><code>--filelimit &lt;#&gt;</code> 如果某个目录中有超过<code>&lt;#&gt;</code>个条目，则不对该目录进行展开</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ tree --filelimit 4</span><br><span class="line">.</span><br><span class="line">├── dir1</span><br><span class="line">│   ├── build</span><br><span class="line">│   │   └── makefile</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── src [5 entries exceeds filelimit, not opening dir]</span><br><span class="line">├── dir2</span><br><span class="line">└── hello</span><br><span class="line"></span><br><span class="line">4 directories, 3 files</span><br></pre></td></tr></table></figure>
+<p>还有很多关于文件方面的选项，比如 <code>-p</code> 选项可以打印出每个文件的权限。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ tree -L 2 -p</span><br><span class="line">.</span><br><span class="line">├── [drwxrwxr-x]  dir1</span><br><span class="line">│   ├── [drwxrwxr-x]  build</span><br><span class="line">│   ├── [-rw-rw-r--]  README.md</span><br><span class="line">│   └── [drwxrwxr-x]  src</span><br><span class="line">├── [drwxrwxr-x]  dir2</span><br><span class="line">└── [-rw-rw-r--]  hello</span><br><span class="line"></span><br><span class="line">4 directories, 2 files</span><br></pre></td></tr></table></figure>
+<p><code>-h</code> 选项可以友好显示文件大小</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ tree -h</span><br><span class="line">.</span><br><span class="line">├── [  44]  dir1</span><br><span class="line">│   ├── [  21]  build</span><br><span class="line">│   │   └── [1.3K]  makefile</span><br><span class="line">│   ├── [2.6K]  README.md</span><br><span class="line">│   └── [  73]  src</span><br><span class="line">│       ├── [192K]  calc.c</span><br><span class="line">│       ├── [2.9K]  calc.h</span><br><span class="line">│       ├── [384K]  debug.c</span><br><span class="line">│       ├── [2.1M]  main.c</span><br><span class="line">│       └── [5.1K]  start.c</span><br><span class="line">├── [   6]  dir2</span><br><span class="line">└── [ 15K]  hello</span><br><span class="line"></span><br><span class="line">4 directories, 8 files</span><br></pre></td></tr></table></figure>
+<p>当然还有一些其他文件选项。然而这还没完。还有排序选项(类似<code>ls</code>中的)，显示选项等等。</p>
+<p>使用 <code>-H &lt;baseHREF&gt;</code> 选项，甚至可以进行 html 输出。非常适合用于静态文件的 HTTP 或者 FTP 托管的 <strong>index</strong> 页面。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -hH <span class="string">'/dl/resources'</span> &gt; index.html</span><br></pre></td></tr></table></figure>
+<p>很多选项你还是需要自己 <code>man tree</code>，探索一下滴。</p>
+<p>That’s all.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/04/18
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/28-tree.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+  
+    <a href="/27-script-2/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

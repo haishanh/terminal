@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>less | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/17-less/">less</a>
+        
+      </h1>
+      
+      <span class="post-meta">February 16, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p><code>less</code>和<code>more</code>类似，都是翻页器程序。但<code>less</code>在操作上更友好。而且用<code>less</code>查看文件时，并不是一次性载入整个文件，所以对于大文件，用<code>less</code>打开的速度也仍然很快。</p>
+<p><code>less</code>在交互式界面中的命令是基于<code>more</code>和<code>vi</code>发展而来的。</p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code>less</code>使用了很多<code>vi/vim</code>中的命令，如果你熟悉<code>vi/vim</code>的话，使用<code>less</code>应该得心应手。（不过如果你熟悉<code>vi/vim</code>的话，应该也不会来看我这样一篇文章吧。）</p>
+<p>你可以通过使用命令<code>j</code>来向下翻1行，<code>k</code>来想上翻1行，<code>gg</code>来回到第1行，<code>G</code>到达最后1行，<code>10j</code>可以向下翻10行。其中命令<code>G</code>就是说要输入大写的G，而<code>10j</code>就是要连续按下键盘上的<code>1</code> <code>0</code> <code>j</code>三个键。当然你也可以使用方向键<code>↓</code>来向下翻1行，方向键<code>↑</code>来向上翻1行。<code>PageUp</code>或<code>Ctrl + b</code>可以向上翻1页，<code>PageDowan</code>或<code>Ctrl + f</code>可以向下翻1页。</p>
+<p>使用<code>/pattern</code>，可以进行搜索。其中<code>pattern</code>是正则表达式，搜索从当前屏幕所显示的第一行开始。</p>
+<p>因为字面字符本身就是正则表达式，如果你不了解正则表达式，你可以直接搜索你要查找的字符串。比如说你要查找单词special，你可以直接在less的交互界面中<strong>连续依次</strong>输入<code>/</code> <code>s</code> <code>p</code> <code>e</code> <code>c</code> <code>i</code> <code>a</code> <code>l</code>。如果当前查看的文件中包含单词special或者某个单词中包含子串special，就会匹配上，less会跳到第一个匹配的地方。使用命令<code>n</code>(小写)跳至下一处匹配，命令<code>N</code>(大写)跳至上一处匹配。假设当前文件无匹配，左下角会有提示”Pattern not found (press RETURN)”。</p>
+<p>我们可以直接使用正则表达式进行搜索，比如要搜索前后都有空格的数字。可以输入<code>/\s[0-9]+\s</code>。</p>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p><code>less</code>也可以同时打开多个文件，但这些文件的内容并不会显示在一起，需要通过命令<code>:n</code>跳到下个文件，<code>:p</code>跳到上一个文件。这点和<code>vi/vim</code>比较像，只是<code>vi/vim</code>是用命令<code>:bn</code>和<code>:bp</code>。</p>
+<p>当然<code>less</code>中还有很多其他命令。可以自己去看看。使用命令<code>h</code>查看帮助。</p>
+<p>Linux中命令的文档(manpage)就是用<code>less</code>作为翻页器。所以了解一下<code>less</code>，自己看manpage也会很方便。很多人不愿看manpage的重要原因（之一）就是在manpage中导航(翻页，搜索等)很麻烦，其实就是对<code>less</code>的操作不了解。</p>
+<p>在<code>less</code>以及<code>vi/vim</code>中可以使用方向键<code>↓</code>和<code>↑</code>来向下和向上移动一行。但我非常推荐大家尝试使用<code>j</code>和<code>k</code>键来代替<code>↓</code>和<code>↑</code>键，原因就是我们大部分时候右手的食指是放在<code>j</code>键上的（大部分键盘在这个键上也会有一个触点），所以<code>j</code>和<code>k</code>键按起来都非常迅速。在<code>vi/vim</code>中还可以使用<code>h</code>和<code>l</code>键代替方向键<code>←</code>和<code>→</code>键。起初你可能不习惯，但相信我你很快就会get use to it.</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/02/16
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/17-less.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/18-file/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/16-more/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>

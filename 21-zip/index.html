@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>文件压缩 | Terminal Ninja</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="alternate" href="atom.xml" type="application/atom+xml">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header>
+
+  <div class="wrapper clearfix">
+    
+<a href="/" class="site-title"><code>$_</code></a>
+
+    
+    <div class="menu"><span class="hamburger"><span></span></span></div>
+    <nav role="navigation" class="nav">
+      
+      <a href="/">Home</a>
+      
+      <a href="/archives">Archives</a>
+      
+      <a href="/atom.xml">RSS</a>
+      
+    </nav>
+    
+  </div>
+</header>
+<section class="main post">
+  <div class="wrapper clearfix">
+    <div class="post-header">
+      <h1 class="post-title">
+        
+          <a href="/21-zip/">文件压缩</a>
+        
+      </h1>
+      
+      <span class="post-meta">March 1, 2016</span>
+      
+    </div>
+    
+
+  
+
+    <div class="post-content">
+      <h2 id="用来干嘛"><a href="#用来干嘛" class="headerlink" title="用来干嘛"></a>用来干嘛</h2><p>文件压缩，自然是为了节省磁盘空间。在Linux上<code>gzip</code>, <code>bzip2</code>, <code>xz</code>三个命令都可以用来对文件进行压缩。这三个命令使用不同的压缩算法。而且它们都有对应的解压缩以及查看已压缩文件内容的命令。我们主要以<code>gzip</code>为例。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p><code>gzip</code>压缩文件时，使用的是Lempel-Ziv(LZ77)编码。<code>gunzip</code>用来解压缩，<code>zcat</code>用来直接查看压缩文件的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gzip [ -acdfhlLnNrtvV19 ] [-S suffix] [ name ...  ]</span><br><span class="line">gunzip [ -acfhlLnNrtvV ] [-S suffix] [ name ...  ]</span><br><span class="line">zcat [ -fhLV ] [ name ...  ]</span><br></pre></td></tr></table></figure>
+<p><code>gzip</code>在压缩后完文件后，会默认添加<code>.gz</code>扩展名。用法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">hello.txt</span><br><span class="line"></span><br><span class="line">$ gzip hello.txt</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">hello.txt.gz</span><br><span class="line"></span><br><span class="line">$ file hello.txt.gz</span><br><span class="line">hello.txt.gz: gzip compressed data, was <span class="string">"hello.txt"</span>, from Unix, last modified: Mon Feb 29 19:17:53 2016</span><br></pre></td></tr></table></figure>
+<p><code>gunzip</code>的简单用法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">hello.txt.gz</span><br><span class="line"></span><br><span class="line">$ gunzip hello.txt.gz  // 或者 gzip <span class="_">-d</span> hello.txt.gz</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">hello.txt</span><br></pre></td></tr></table></figure>
+<p><code>gunzip</code>的功能与<code>gzip</code>使用<code>-d/--decompress/--uncompress</code>选项相同。</p>
+<p>zcat的简单用法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat hello.txt.gz</span><br><span class="line">// 乱码输出</span><br><span class="line"></span><br><span class="line">$ zcat hello.txt.gz  // 或者 gunzip -c hello.txt.gz</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p><code>zcat</code>的功能与<code>gunzip</code>(注意这里是g<strong>un</strong>zip)使用<code>-c/--stdout/--to-stdout</code>选项相同。</p>
+<p>当然在使用<code>gzip</code>的使用你也可以使用<code>-S .suf / --suffix .suf</code>的选项，修改默认压缩文件的扩展名。这样的选项大部分人应该都不会记在脑中，所以一般都是先<code>gzip</code>然后<code>mv</code>改扩展名。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">hello.txt</span><br><span class="line"></span><br><span class="line">$ gzip -S .what hello.txt</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">hello.txt.what</span><br></pre></td></tr></table></figure>
+<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p><code>bzip2</code>使用的是Burrows-Wheeler block sorting文本压缩算法以及Huffman编码。使用方法和<code>gzip</code>类似，也有对应的<code>bunzip2</code>和<code>bzcat</code>命令。同样，<code>bunzip2</code>相当于<code>bzip2 -d</code>，<code>bzcat</code>相当于<code>bunzip2 -c</code>。<code>bzip2</code>默认使用<code>.bz2</code>作为扩展名。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ bzip2 hello.txt</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">hello.txt.bz2</span><br><span class="line"></span><br><span class="line">$ bzcat hello.txt.bz2</span><br><span class="line">Hello World</span><br><span class="line"></span><br><span class="line">$ bunzip2 hello.txt.bz2</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">hello.txt</span><br></pre></td></tr></table></figure>
+<p><code>xz</code>使用LZMA/LZMA2压缩算法，其命令用法和<code>gzip</code>与<code>bzip2</code>类似。也有对应的<code>unxz</code>和<code>xzcat</code>命令。默认扩展名是<code>.xz</code>。</p>
+<p>对于不同的压缩命令/算法，在判断优缺点时大概需要考虑以下因素：</p>
+<ul>
+<li>压缩率(Compression Ratio) - 能把文件压缩到多小</li>
+<li>解压缩所需时间(Decompression Speed) - 反映到对CPU的需求</li>
+<li>解压缩的内存需求(Decompression Memory Requirement)</li>
+<li>兼容性/可用性(Compatibility and Availability) - 比如：一般要考虑别的操作系统上是否也可以解压</li>
+</ul>
+<p>显然，压缩时需要的时间和内存使用不是那么的重要。</p>
+<p><code>bzip2</code>相比较<code>gzip</code>有更高的压缩率，而<code>xz</code>的压缩率通常比<code>bzip2</code>还高。解压时间上，通常<code>gzip</code>最快，<code>xz</code>次之，<code>bzip2</code>最慢。具体可以看<a href="http://tukaani.org/lzma/benchmarks.html" target="_blank" rel="external">这里的benchmark</a>。</p>
+<p>That’s it.</p>
+
+    </div>
+    
+
+<div class="post-footer">
+  
+  Updated on 16/02/29
+</div>
+    
+<div class="post-buttons">
+  
+    <a href="#" id="comments-trigger">Comments</a>
+  
+  
+    
+    <a href="https://github.com/haishanh/terminal/blob/master/source/_posts/21-zip.md" target="_blank">Source</a>
+  
+</div>
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  var disqus_shortname = 'terminal-ninja';
+
+  function load_disqus() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+
+  s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  };
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+  
+
+<div class="post-nav">
+<div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg"><symbol id="ic_chevron_left_white_24px" viewBox="0 0 24 24">
+    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol><symbol id="ic_chevron_right_white_24px" viewBox="0 0 24 24">
+    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol></svg><!-- endinjected -->
+</div>
+  
+    <a href="/22-tar/" class="nav prev">
+    <svg class="icon left"><use xlink:href="#ic_chevron_left_white_24px" /></svg>PREVIOUS</a>
+  
+  
+    <a href="/20-man/" class="nav next">
+    NEXT<svg class="icon right"><use xlink:href="#ic_chevron_right_white_24px" /></svg></a>
+  
+</div>
+</section><footer>
+  
+  <h3>Terminal Ninja</h3>
+  
+  
+  <p>Command line for everyone</p>
+  
+  
+  <div class="additional">
+      <span>&copy;</span> 2016 <a href="http://hanhaishan.com">Haishan</a><br> Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+  </div>
+  
+</footer>
+<script src="/js/script.js"></script>
+</body>
+</html>
